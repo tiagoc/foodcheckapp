@@ -51,4 +51,14 @@
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ping Server"
+        android:id="@+id/pingServer"
+        android:layout_below="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginTop="44dp" />
+
 </RelativeLayout>

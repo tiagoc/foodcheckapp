@@ -26,6 +26,7 @@ public class Text2Speech extends Activity {
     TextToSpeech t1;
     EditText ed1;
     Button b1;
+    Button b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class Text2Speech extends Activity {
         setContentView(R.layout.activity_text2_speech);
         ed1=(EditText)findViewById(R.id.editText);
         b1=(Button)findViewById(R.id.button);
+        b2=(Button)findViewById(R.id.pingServer);
 
         t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -40,6 +42,13 @@ public class Text2Speech extends Activity {
                 if(status != TextToSpeech.ERROR) {
                     t1.setLanguage(Locale.UK);
                 }
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FoodCheckReporter(t1).execute();
             }
         });
 
