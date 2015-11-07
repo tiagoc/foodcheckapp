@@ -15,18 +15,26 @@ import java.net.URL;
 
 public class FoodCheckReporter extends AsyncTask {
 
-    final String endpoint = "http://192.168.10.30:5000/foodcheck";
+    String endpoint = "http://192.168.10.30:5000/foodcheck";
 
     JSONObject endpointResponse;
 
     TextToSpeech speechConverter;
 
+    static boolean reporting = false;
+
     public FoodCheckReporter(TextToSpeech t2s) {
         speechConverter = t2s;
     }
 
+    public FoodCheckReporter(TextToSpeech t2s, String url) {
+        speechConverter = t2s;
+        endpoint = url;
+    }
+
     @Override
     protected Object doInBackground(Object[] params) {
+        FoodCheckReporter.reporting = true;
         try {
             final URL url = new URL(endpoint);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -60,5 +68,6 @@ public class FoodCheckReporter extends AsyncTask {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        FoodCheckReporter.reporting = false;
     }
 }
