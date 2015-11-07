@@ -1,4 +1,4 @@
-package dogs.millennial.qrfoodcheck;
+package millenialdogs.foodchecker;
 
 import android.content.Context;
 import android.graphics.Canvas;
