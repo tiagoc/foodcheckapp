@@ -27,6 +27,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     private TextToSpeech t1;
     private Vibrator v1;
 
+
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -66,11 +67,11 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void handleResult(Result rawResult) {
-        if (!FoodCheckReporter.reporting) {
+        if (!FoodCheckReporter.reporting && !t1.isSpeaking()) {
             v1.vibrate(300);
             new FoodCheckReporter(t1, rawResult.getText()).execute();
         }
-        mScannerView.startCamera();
+        onResume();
     }
 
     private static class CustomViewFinderView extends ViewFinderView {
