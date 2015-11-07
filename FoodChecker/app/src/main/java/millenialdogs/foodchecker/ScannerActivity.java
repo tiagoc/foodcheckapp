@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
     private TextToSpeech t1;
+    private Vibrator v1;
 
     @Override
     public void onCreate(Bundle state) {
@@ -37,6 +39,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                 }
             }
         });
+
+        v1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         mScannerView = new ZXingScannerView(this) {
             @Override
@@ -63,6 +67,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     @Override
     public void handleResult(Result rawResult) {
         if (!FoodCheckReporter.reporting) {
+            v1.vibrate(300);
             new FoodCheckReporter(t1, rawResult.getText()).execute();
         }
         mScannerView.startCamera();
